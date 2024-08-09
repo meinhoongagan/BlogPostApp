@@ -27,7 +27,9 @@ function App() {
       <div className='flex-col h-auto'>
         <div className='w-96 content-center bg-slate-400 m-auto'>
         <Header/>
+        <main>
         <Outlet/>
+        </main>
         <Footer/>
         </div>
       </div>
