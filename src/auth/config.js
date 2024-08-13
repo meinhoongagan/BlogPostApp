@@ -2,12 +2,12 @@ import { Client, Databases, Storage, Query, ID } from 'appwrite';
 import conf from '../conf/conf';
 
 export class Services {
-    client = new Client();
+    client;
     databases;
     bucket;
 
     constructor() {
-        this.client
+        this.client = new Client()
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
 
@@ -87,11 +87,12 @@ export class Services {
 
     async uploadFile(file) {
         try {
-            return await this.bucket.createFile(
+            const response = await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
                 file
             );
+            return response; // Ensure you return the file response
         } catch (error) {
             console.error('Error uploading file:', error);
             throw error;
@@ -100,13 +101,14 @@ export class Services {
 
     async deleteFile(fileId) {
         try {
-            return await this.bucket.deleteFile(
+            await this.bucket.deleteFile(
                 conf.appwriteBucketId,
                 fileId
             );
+            return true; // Indicate success
         } catch (error) {
             console.error('Error deleting file:', error);
-            throw error;
+            return false; // Indicate failure
         }
     }
 
