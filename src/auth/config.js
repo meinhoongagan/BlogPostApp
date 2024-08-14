@@ -83,8 +83,6 @@ export class Services {
         }
     }
 
-    // File Services
-
     async uploadFile(file) {
         try {
             const response = await this.bucket.createFile(
@@ -92,7 +90,7 @@ export class Services {
                 ID.unique(),
                 file
             );
-            return response; // Ensure you return the file response
+            return response;
         } catch (error) {
             console.error('Error uploading file:', error);
             throw error;
@@ -105,10 +103,10 @@ export class Services {
                 conf.appwriteBucketId,
                 fileId
             );
-            return true; // Indicate success
+            return true;
         } catch (error) {
             console.error('Error deleting file:', error);
-            return false; // Indicate failure
+            return false;
         }
     }
 
